@@ -18,7 +18,7 @@
 			아래의 링크가 동작하도록 해 보세요.
 			목록보기, 추가, 수정, 삭제 기능을 모두 구현 하세요.
 			test.todo.dto
-			test.todo.dao 페키지도 만들고 TodoDto TodoDao 도 만드세요.
+			test.todo.dao 패키지도 만들고 TodoDto TodoDao 도 만드세요.
 			모두 구현후 bootstrap css 도 모든 페이지에 적용 시켜 보세요.
 		 -->
 		<li><a href="todo/list.jsp">할일 목록 보기</a></li>
