@@ -8,18 +8,29 @@
 <%--
 	특정 jsp 페이지에 포함 시킬 내용을 jsp 페이지에 작성할수 있습니다.
  --%>
+ 
+ <%
+ 	// "thisPage" 라는 파라미터 명으로 전달된 문자열 읽어오기 
+ 	String thisPage=request.getParameter("thisPage");
+ 	//NullPointerException 방지 (500번 버스 안타기)
+ 	if(thisPage==null){
+ 		thisPage="";
+ 	}
+ %>
  <nav class="navbar navbar-dark bg-primary navbar-expand-sm">
 	<div class="container">
-	  	<a class="navbar-brand" href="${pageContext.request.contextPath }/">Acorn</a>
+	  	<a class="navbar-brand" href="${pageContext.request.contextPath }/">
+	  		<img style="width:30px;height:30px" src="${pageContext.request.contextPath }/images/kim1.png"/> Acorn
+	  	</a>
 		<button class="navbar-toggler" data-toggle="collapse" data-target="#topNav">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="topNav">
 			<ul class="navbar-nav">
-				<li class="nav-item">
+				<li class="nav-item <%=thisPage.equals("member") ? "active" : "" %>">
 					<a class="nav-link" href="${pageContext.request.contextPath }/member/list.jsp">회원목록</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item <%=thisPage.equals("todo") ? "active" : "" %>">
 					<a class="nav-link" href="${pageContext.request.contextPath }/todo/list.jsp">할일목록</a>
 				</li>
 			</ul>	
