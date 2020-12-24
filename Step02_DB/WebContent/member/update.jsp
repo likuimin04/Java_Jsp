@@ -22,6 +22,7 @@
 <title>/member/update.jsp</title>
 </head>
 <body>
+	<div class="container">
 	<%if(isSuccess){ %>
 		<script>
 			alert("<%=num%> 번 회원의 정보를 수정했습니다.");
@@ -33,6 +34,8 @@
 			location.href="list.jsp";
 		</script>
 	<%} %>
+	
+	</div>
 </body>
 </html>
 

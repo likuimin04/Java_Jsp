@@ -14,19 +14,45 @@
 <head>
 <meta charset="UTF-8">
 <title>/member/updateform.jsp</title>
+<jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body>
-	<h1>회원 정보 수정 폼 입니다.</h1>
-	<form action="update.jsp" method="post">
-		<!-- 회원정보를 수정 반영할때 번호도 필요하기 때문에 폼 제출될때 같이 제출되도록 한다. -->
+<jsp:include page="../include/navbar.jsp"></jsp:include>
+	<div class="container">
+		<nav>
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="${pageContext.request.contextPath }/">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="${pageContext.request.contextPath }/member/list.jsp">회원목록</a>
+            </li>
+            <li class="breadcrumb-item active">회원 정보 수정</li>
+        </ul>
+    </nav>
+    <h2>회원 정보 수정</h2>
+    <form action="update.jsp" method="post">
+    	<!-- 회원정보를 수정 반영할때 번호도 필요하기 때문에 폼 제출될때 같이 제출되도록 한다. -->
 		<input type="hidden" name="num" value="<%=dto.getNum() %>"/>
-		<!--  아래 번호는 단순 display 용도이다.  -->
-		번호 <input type="text" value="<%=dto.getNum() %>" disabled/> <br/>
-		이름 <input type="text" name="name" value="<%=dto.getName() %>"/><br/>
-		주소 <input type="text" name="addr" value="<%=dto.getAddr() %>"/><br/>
-		<button type="submit">수정확인</button>
-		<button type="reset">취소</button>
+    	<div class="input-group mb-3">
+  			<span class="input-group-text" id="inputGroup-sizing-default">번호</span>
+  			<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+  			value="<%=dto.getNum() %>" disabled/>
+		</div>
+		<div class="input-group mb-3">
+			<span class="input-group-text" id="inputGroup-sizing-default">이름</span>
+  			<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+  			name="name" value="<%=dto.getName() %>"/>
+    	</div>
+    	<div class="input-group mb-3">
+    		<span class="input-group-text" id="inputGroup-sizing-default">주소</span>
+  			<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+  			name="addr" value="<%=dto.getAddr() %>"/>
+    	</div>
+		<button class="btn btn-success" type="submit">수정확인</button>
+		<button class="btn btn-danger" type="reset">취소</button>
 	</form>
+	</div>
 </body>
 </html>
 
