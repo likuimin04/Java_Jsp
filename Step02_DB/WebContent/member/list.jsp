@@ -5,10 +5,10 @@
     pageEncoding="UTF-8"%>
 <%
 	//한 페이지에 몇개씩 표시할 것인지
-	final int pageRowCount=5;
-	//하단 페이지를 몇개씩 표기할 것인지
-	final int PAGE_ROW_COUNT;
-
+	final int PAGE_ROW_COUNT=5;
+	//하단 페이지를 몇개씩 표시할 것인지
+	final int PAGE_DISPLAY_COUNT=5;
+	
 	//보여줄 페이지의 번호를 일단 1이라고 초기값 지정
 	int pageNum=1;
 	//페이지 번호가 파라미터로 전달되는지 읽어와 본다.
@@ -31,11 +31,11 @@
 	
 	//MemberDao 객체를 이용해서 회원 목록을 얻어온다.
 	List<MemberDto> list=MemberDao.getInstance().getList(dto);
-	//하단 페이지 이동 UI 를 최대 몇개씩 표시할지에 대한 값
-	int pageDisplayCount=5;
 	
+	//하단 시작 페이지 번호 
 	int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
-	int endPageNum=startPageNum+pageDisplayCount-1;
+	//하단 끝 페이지 번호
+	int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
 	
 	//전체 row 의 갯수
 	int totalRow=MemberDao.getInstance().getCount();
@@ -100,7 +100,7 @@
 		<ul class="pagination">
 			<%if(startPageNum != 1){ %>
 				<li class="page-item">
-					<a class="page-link" href="list.jsp?pageNum=<%=startPageNum-1 %>">Prev</a>
+					<a class="page-link" href="list.jsp?pageNum=<%=startPageNum-1 %>">이전</a>
 				</li>
 			<%} %>
 			<%for(int i=startPageNum; i<=endPageNum; i++) {%>
@@ -116,7 +116,7 @@
 			<%} %>
 			<%if(endPageNum < totalPageCount){ %>
 				<li class="page-item">
-					<a class="page-link" href="list.jsp?pageNum=<%=endPageNum+1 %>">Next</a>
+					<a class="page-link" href="list.jsp?pageNum=<%=endPageNum+1 %>">다음</a>
 				</li>
 			<%} %>
 		</ul>
