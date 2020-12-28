@@ -5,7 +5,10 @@
     pageEncoding="UTF-8"%>
 <%
 	//한 페이지에 몇개씩 표시할 것인지
-	int pageRowCount=5;
+	final int pageRowCount=5;
+	//하단 페이지를 몇개씩 표기할 것인지
+	final int PAGE_ROW_COUNT;
+
 	//보여줄 페이지의 번호를 일단 1이라고 초기값 지정
 	int pageNum=1;
 	//페이지 번호가 파라미터로 전달되는지 읽어와 본다.
@@ -17,9 +20,9 @@
 	}
 
 	//보여줄 페이지의 시작 ROWNUM
-	int startRowNum=1+(pageNum-1)*pageRowCount;
+	int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
 	//보여줄 페이지의 끝 ROWNUM
-	int endRowNum=pageNum*pageRowCount;
+	int endRowNum=pageNum*PAGE_ROW_COUNT;
 	
 	//startRowNum 과 endRowNum  을 MemberDto 객체에 담고
 	MemberDto dto=new MemberDto();
@@ -28,10 +31,20 @@
 	
 	//MemberDao 객체를 이용해서 회원 목록을 얻어온다.
 	List<MemberDto> list=MemberDao.getInstance().getList(dto);
+	//하단 페이지 이동 UI 를 최대 몇개씩 표시할지에 대한 값
+	int pageDisplayCount=5;
 	
-	//int pageDisplayCount=5;
-	int startPageNum= 1 + ((pageNum-1)/5)*5;  // 정수를 정수로 나누면 정수로밖에 값이 안나온다.
-	int endPageNum=startPageNum+5-1;
+	int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
+	int endPageNum=startPageNum+pageDisplayCount-1;
+	
+	//전체 row 의 갯수
+	int totalRow=MemberDao.getInstance().getCount();
+	//전체 페이지의 갯수 구하기
+	int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+	//끝 페이지 번호가 이미 전체 페이지 갯수보다 크게 계산되었다면 잘못된 값이다.
+	if(endPageNum > totalPageCount){
+		endPageNum=totalPageCount; //보정해 준다. 
+	}
 %>    
 <!DOCTYPE html>
 <html>
@@ -83,30 +96,29 @@
 			<%} %>
 		</tbody>
 	</table>
-	<p class="alert alert-warning">
-		현재 페이지는 <strong><%=pageNum %></strong> 입니다.
-		죄송하지만 현재 저희 개발자가 아직 안배운게 있어서 다른 페이지로 이동하고 싶으면
-		주소창에 <code>?pagNum=원하는페이지</code> 처럼 작성해서 이동하세요 
-	</p>
 	<nav>
 		<ul class="pagination">
-			<li>
-			 <a class="page-link" href="list.jsp?pageNum=<%=startPageNum-1 %>">prev</a>
-			</li>
-			<%for(int i=1; i<=5; i++){%>
+			<%if(startPageNum != 1){ %>
+				<li class="page-item">
+					<a class="page-link" href="list.jsp?pageNum=<%=startPageNum-1 %>">Prev</a>
+				</li>
+			<%} %>
+			<%for(int i=startPageNum; i<=endPageNum; i++) {%>
 				<%if(i==pageNum){ %>
 					<li class="page-item active">
-						<a class="page-link" href="list.jsp?pageNum=<%=i%>"><%=i %></a>
+						<a class="page-link" href="list.jsp?pageNum=<%=i %>"><%=i %></a>
 					</li>
 				<%}else{ %>
 					<li class="page-item">
-						<a class="page-link" href="list.jsp?pageNum=<%=i%>"><%=i %></a>
+						<a class="page-link" href="list.jsp?pageNum=<%=i %>"><%=i %></a>
 					</li>
 				<%} %>
 			<%} %>
-			<li class="page-item">
-				<a class="page-link" href="list.jsp?pageNum=<%endPageNum+1 %>">Next</a>
-			</li>
+			<%if(endPageNum < totalPageCount){ %>
+				<li class="page-item">
+					<a class="page-link" href="list.jsp?pageNum=<%=endPageNum+1 %>">Next</a>
+				</li>
+			<%} %>
 		</ul>
 	</nav>
 </div>
