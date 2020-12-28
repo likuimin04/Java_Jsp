@@ -97,10 +97,14 @@
 		</tbody>
 	</table>
 	<nav>
-		<ul class="pagination">
+		<ul class="pagination justify-content-center">
 			<%if(startPageNum != 1){ %>
 				<li class="page-item">
 					<a class="page-link" href="list.jsp?pageNum=<%=startPageNum-1 %>">Prev</a>
+				</li>
+			<%}else{ %>
+				<li class="page-item disabled">
+					<a class="page-link" href="javascript:">Prev</a>
 				</li>
 			<%} %>
 			<%for(int i=startPageNum; i<=endPageNum; i++) {%>
@@ -117,6 +121,10 @@
 			<%if(endPageNum < totalPageCount){ %>
 				<li class="page-item">
 					<a class="page-link" href="list.jsp?pageNum=<%=endPageNum+1 %>">Next</a>
+				</li>
+			<%}else{ %>
+				<li class="page-item disabled">
+					<a class="page-link" href="javascript:">Next</a>
 				</li>
 			<%} %>
 		</ul>
