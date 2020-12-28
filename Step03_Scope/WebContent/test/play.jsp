@@ -7,6 +7,7 @@
 <title>/test/play.jsp</title>
 </head>
 <body>
+	<!-- 나중에 이 세션을 이용해서 로그인과 로그 아웃을 해야해서 알아야한다. -->
 	<%
 		// session scope 에 "nick"이라는 키값으로 저장된 String type 읽어오기
 		String nick=(String)session.getAttribute("nick");
