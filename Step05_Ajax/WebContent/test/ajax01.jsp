@@ -10,6 +10,10 @@
 	<h1>ajax 테스트 페이지</h1>
 	<p>페이지 전환 없이 javascript 로 웹서버에 요청을 하는 방법이 있습니다.</p>
 	<button id="getBtn">요청하기</button>
+	<button id="getBtn2">요청하기2</button>
+	<div id="result">
+	
+	</div>
 	<script>
 		document.querySelector("#getBtn")
 			.addEventListener("click", function(){
@@ -25,6 +29,19 @@
 					console.log(data);
 				});
 			});
+		document.querySelector("#getBtn2")
+		.addEventListener("click", function(){
+			//fetch() 함수를 이용해서 get_data.jsp 페이지에 GET 방식 요청을 한다.
+			fetch("get_data2.jsp")
+			.then(function(response){
+				return response.text();
+			})
+			.then(function(data){
+				console.log(data);
+				//응답된 문자열을 아이디가 result 인 요소에 HTML 로 해석하라고 넣어주기 
+				document.querySelector("#result").innerHTML=data;
+			});
+		});
 	</script>
 </body>
 </html>
