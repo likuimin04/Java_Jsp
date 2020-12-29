@@ -75,7 +75,7 @@
 				//data 는 배열이다.
 				console.log(data);
 				let ul=document.createElement("ul");
-				for(int i=0; i<data.length; i++){
+				for(let i=0; i<data.length; i++){
 					let tmp=data[i];
 					let li=document.createElement("li");
 					li.innerText=tmp;
