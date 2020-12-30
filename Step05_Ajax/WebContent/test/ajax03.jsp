@@ -20,6 +20,20 @@
 			
 			4. added! 라는 문자열을 add.jsp 페이지에서 응답하는 프로그래밍을 해 보세요.
 		*/
+		document.querySelector("#sendBtn")
+		.addEventListener("click", function(){
+			//입력한 문자열 읽어오기
+			let name=document.querySelector("#inputName").value;
+			let addr=document.querySelector("#inputAddr").value;
+			//fecth() 함수를 이용해서 요청하기
+			fetch("add.jsp?name="+name+"&addr="+addr)
+			.then(function(response){
+				return response.text();
+			})
+			.then(function(data){
+				console.log(data);
+			});
+		});
 	</script>
 </body>
 </html>
