@@ -17,14 +17,27 @@
 			//입력한 문자열 읽어오기
 			let name=document.querySelector("#inputName").value;
 			let addr=document.querySelector("#inputAddr").value;
+			//query 문자열 구성하기 value 는 인코딩을 해서 보내야 한다. 
+			let queryString="name="+encodeURIComponent(name)
+				+"&addr="+encodeURIComponent(addr);
 			// fetch() 함수를 이용해서 ajax POST 전송하기
+			/*
+				[ POST ] 방식으로 전송하기 위해서는
+				1. method 를 "POST" 
+				2. 정확한 요청 헤더 정보 제공
+				3. 전송할 데이터를 query 문자열로 구성해서 요청의 몸통(body) 에 전달한다.
+			*/
 			fetch("add.jsp", {
 				method:"POST",
-				headers:{},
-				body:"전송할 query string"
+				headers:{"Content-Type":"application/x-www-form-urlencoded; charset=utf-8"},
+				body:queryString
 			})
-			.then(function(response){})
-			.then(function(data){});
+			.then(function(response){
+				return response.text();
+			})
+			.then(function(data){
+				console.log(data);
+			});
 		});
 	</script>
 </body>
