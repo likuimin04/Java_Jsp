@@ -74,13 +74,20 @@
 			.then(function(data){
 				//data 는 배열이다.
 				console.log(data);
+				//ul 요소를 만들어서 
 				let ul=document.createElement("ul");
+				//반복문 돌면서 
 				for(let i=0; i<data.length; i++){
+					//배열에 저장된 문자열을 하나씩 얻어내서 
 					let tmp=data[i];
+					//li 요소를 만들고 
 					let li=document.createElement("li");
+					//li 의 innerText 로 문자열을 추가하고
 					li.innerText=tmp;
+					//ul 요소에 누적 시키기 
 					ul.append(li);
 				}
+				// id 가 result 인 요소에 ul 를 추가하기 
 				document.querySelector("#result").append(ul);
 			});
 		});
