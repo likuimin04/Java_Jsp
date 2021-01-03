@@ -4,29 +4,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/test/ajax03.jsp</title>
+<title>/test/ajax07.jsp</title>
 </head>
 <body>
+	<h1>ajax POST 전송 예제</h1>
 	<input type="text" id="inputName" placeholder="이름입력..."/>
 	<input type="text" id="inputAddr" placeholder="주소입력..."/>
 	<button id="sendBtn">전송</button>
-	<script>
-		/*
-			1. 전송버튼을 누르면 입력한 이름과 주소를 읽어와서
-			
-			2. add.jsp 페이지에 ajax 전송하고
-			
-			3. add.jsp 페이지에서는 전송된 내용을 콘솔에 출력하고
-			
-			4. added! 라는 문자열을 add.jsp 페이지에서 응답하는 프로그래밍을 해 보세요.
-		*/
+	<!-- 외부 javascript 로딩 -->
+	<script src="${pageContext.request.contextPath }/js/myUtil.js"></script>
+	<script>	
 		document.querySelector("#sendBtn")
 		.addEventListener("click", function(){
 			//입력한 문자열 읽어오기
 			let name=document.querySelector("#inputName").value;
 			let addr=document.querySelector("#inputAddr").value;
-			//fecth() 함수를 이용해서 요청하기
-			fetch("add.jsp?name="+name+"&addr="+addr)
+			
+			//입력한 문자열을 object 에 담는다.
+			let obj={name:name, addr:addr};
+			//유틸리티 함수를 이용해서 ajax 요청을 하고 Promise 를 리턴 받는다.
+			ajaxPromise("add.jsp", "POST", obj)
 			.then(function(response){
 				return response.text();
 			})
