@@ -26,10 +26,14 @@ public class UsersDao {
 		try {
 			conn = new DbcpBean().getConn();
 			//실행할 insert, update, delete 문 구성
-			String sql = "";
+			String sql = "INSERT INTO users"
+					+ " (id, pwd, email, regdate)"
+					+ " VALUES(?, ?, ?, SYSDATE)";
 			pstmt = conn.prepareStatement(sql);
 			//? 에 바인딩할 내용이 있으면 바인딩한다.
-
+			pstmt.setString(1, dto.getId());
+			pstmt.setString(2, dto.getPwd());
+			pstmt.setString(3, dto.getEmail());
 			flag = pstmt.executeUpdate(); //sql 문 실행하고 변화된 row 갯수 리턴 받기
 		} catch (Exception e) {
 			e.printStackTrace();
