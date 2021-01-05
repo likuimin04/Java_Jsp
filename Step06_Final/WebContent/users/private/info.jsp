@@ -32,8 +32,22 @@
 			<td><%=dto.getRegdate() %></td>
 		</tr>
 	</table>
+	<a href="javascript:deleteConfirm()">탈퇴</a>
 </div>
+<script>
+	function deleteConfirm(){
+		let isDelete=confirm("<%=id %> 회원님 탈퇴 하시겠습니까?");
+		if(isDelete){
+			location.href="delete.jsp";
+		}
+	}
+</script>
 </body>
 </html>
+
+
+
+
+
 
 
