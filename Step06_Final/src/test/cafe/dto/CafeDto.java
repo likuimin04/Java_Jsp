@@ -5,11 +5,11 @@ public class CafeDto {
 	private String writer;
 	private String title;
 	private String content;
-	private String viewCount;
+	private int viewCount;
 	private String regdate;
 	//생성자
 	public CafeDto() {}
-	public CafeDto(int num, String writer, String title, String content, String viewCount, String regdate) {
+	public CafeDto(int num, String writer, String title, String content, int viewCount, String regdate) {
 		super();
 		this.num = num;
 		this.writer = writer;
@@ -42,10 +42,10 @@ public class CafeDto {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getViewCount() {
+	public int getViewCount() {
 		return viewCount;
 	}
-	public void setViewCount(String viewCount) {
+	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
 	}
 	public String getRegdate() {
