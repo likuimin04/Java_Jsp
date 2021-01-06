@@ -7,7 +7,9 @@
 	int num=Integer.parseInt(request.getParameter("num"));
 	//2. 글번호를 이용해서 DB 에서 글정보를 읽어온다.
 	CafeDto dto=CafeDao.getInstance().getData(num);
-	//3. 응답한다.
+	//3. 글 조회수를 올린다.
+	CafeDao.getInstance().addViewCount(num);
+	//4. 응답한다.
 %>    
 <!DOCTYPE html>
 <html>
