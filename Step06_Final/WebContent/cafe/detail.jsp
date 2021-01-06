@@ -52,6 +52,7 @@
 	<ul>
 		<li><a href="list.jsp">목록보기</a></li>
 		<%if(dto.getWriter().equals(id)){ %>
+			<li><a href="private/updateform.jsp?num=<%=dto.getNum()%>">수정</a></li>
 			<li><a href="javascript:deleteConfirm()">삭제</a></li>
 		<%} %>
 	</ul>
