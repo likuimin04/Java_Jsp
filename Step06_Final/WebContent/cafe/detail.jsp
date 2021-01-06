@@ -45,9 +45,32 @@
 			</td>
 		</tr>
 	</table>
+	<%
+		//session scope 에서 로그인된 아이디를 읽어와 본다. ( null 일수도 있음 )
+		String id=(String)session.getAttribute("id");
+	%>
+	<ul>
+		<li><a href="list.jsp">목록보기</a></li>
+		<%if(dto.getWriter().equals(id)){ %>
+			<li><a href="javascript:deleteConfirm()">삭제</a></li>
+		<%} %>
+	</ul>
 </div>
+<script>
+	function deleteConfirm(){
+		let isDelete=confirm("글을 삭제 하시겠습니까?");
+		if(isDelete){
+			location.href="private/delete.jsp?num=<%=dto.getNum()%>";
+		}
+	}
+</script>
 </body>
 </html>
+
+
+
+
+
 
 
 
