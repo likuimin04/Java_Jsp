@@ -1,3 +1,5 @@
+<%@page import="test.file.dao.FileDao"%>
+<%@page import="test.file.dto.FileDto"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -35,6 +37,18 @@
 	System.out.println("orgFileName:"+orgFileName);
 	System.out.println("saveFileName:"+saveFileName);
 	System.out.println("fileSize:"+fileSize);
+	//작성자
+	String writer=(String)session.getAttribute("id");
+	//업로드된 파일의 정보를 FileDto 에 담고
+	FileDto dto=new FileDto();
+	dto.setWriter(writer);
+	dto.setTitle(title);
+	dto.setOrgFileName(orgFileName);
+	dto.setSaveFileName(saveFileName);
+	dto.setFileSize(fileSize);
+	//DB 에 저장
+	boolean isSuccess=FileDao.getInstance().insert(dto);
+	//응답하기
 %>    
 <!DOCTYPE html>
 <html>
@@ -43,6 +57,20 @@
 <title>/file/upload.jsp</title>
 </head>
 <body>
-	
+	<%if(isSuccess){ %>
+		<p>
+			<%=writer %> 님이 업로드한 <%=orgFileName %> 파일을 저장했습니다.
+			<a href="${pageContext.request.contextPath }/file/list.jsp">목록보기</a>
+		</p>
+	<%}else{ %>
+		<p>
+			업로드 실패!
+			<a href="upload_form.jsp">다시 시도</a>
+		</p>
+	<%} %>
 </body>
 </html>
+
+
+
+
