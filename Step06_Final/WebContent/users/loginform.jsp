@@ -29,8 +29,8 @@
 			<label for="pwd" class="form-label">비밀번호</label> <input
 				type="password" name="pwd" class="form-control" id="pwd">
 		</div>
-		<button type="button" class="btn btn-outline-primary"><a href="signup_form.jsp">회원가입</a></button>
-		<button type="button" class="btn btn-outline-success">로그인</button>
+		<button type="submit" class="btn btn-outline-primary"><a href="signup_form.jsp">회원가입</a></button>
+		<button type="submit" class="btn btn-outline-success">로그인</button>
 	</form>
 </div>
 </body>
