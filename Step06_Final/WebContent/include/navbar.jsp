@@ -17,7 +17,7 @@
  		thisPage="";
  	}
  %>
- <nav class="navbar navbar-dark bg-primary navbar-expand-sm">
+ <nav class="navbar navbar-dark bg-primary navbar-expand-sm fixed-top">
 	<div class="container">
 	  	<a class="navbar-brand" href="${pageContext.request.contextPath }/">
 	  		<img style="width:30px;height:30px" src="${pageContext.request.contextPath }/images/kim1.png"/> Acorn

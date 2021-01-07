@@ -12,13 +12,31 @@
 <head>
 <meta charset="UTF-8">
 <title>/cafe/list.jsp</title>
+<jsp:include page="../include/resource.jsp"></jsp:include>
+<style>
+	/* 고정된 navbar 밑에 최상단 컨텐츠가 숨겨지지 않도록 */
+	body{
+		padding-top:60px;
+	}
+</style>
 </head>
 <body>
+<jsp:include page="../include/navbar.jsp">
+	<jsp:param value="cafe" name="thisPage"/>
+</jsp:include>
 <div class="container">
+	<nav>
+		<ul class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="${pageContext.request.contextPath }/">Home</a>
+			</li>
+			<li class="breadcrumb-item active">글목록</li>
+		</ul>
+	</nav>
 	<a href="private/insertform.jsp">새글 작성</a>
 	<h1>카페 글 목록 입니다.</h1>
-	<table>
-		<thead>
+	<table class="table table-striped">
+		<thead class="thead-dark">
 			<tr>
 				<th>글번호</th>
 				<th>작성자</th>
