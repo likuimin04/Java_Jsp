@@ -8,35 +8,42 @@
 <%--
 	특정 jsp 페이지에 포함 시킬 내용을 jsp 페이지에 작성할수 있습니다.
  --%>
+ 
  <%
- 	// "thisPage"라는 파리미터 명으로 전달 된 문자열 읽어오기
+ 	// "thisPage" 라는 파라미터 명으로 전달된 문자열 읽어오기 
  	String thisPage=request.getParameter("thisPage");
- 	// NullPointerException 방지 (500 버스 안타기)
+ 	//NullPointerException 방지 (500번 버스 안타기)
  	if(thisPage==null){
  		thisPage="";
  	}
  %>
- <nav class="navbar navbar-light bg-light navbar-expand-sm">
+ <nav class="navbar navbar-light bg-light navbar-expand-sm fixed-top">
 	<div class="container">
 	  	<a class="navbar-brand" href="${pageContext.request.contextPath }/">
-	  		<img src="${pageContext.request.contextPath }/images/acorn.png"/> 
-	  		<strong> Acorn</strong>
+	  		<img style="width:30px;height:30px" src="${pageContext.request.contextPath }/images/acorn.png"/> Acorn
 	  	</a>
 		<button class="navbar-toggler" data-toggle="collapse" data-target="#topNav">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="topNav">
-			<ul class="navbar-nav">
-				<li class="nav-item <%=thisPage.equals("signup")? "active":"" %>">
-					<a class="nav-link" href="${pageContext.request.contextPath }/users/signup_form.jsp">Sign Up</a>
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item <%=thisPage.equals("cafe") ? "active" : "" %>">
+					<a class="nav-link" href="${pageContext.request.contextPath }/cafe/list.jsp">글목록</a>
 				</li>
-				<li class="nav-item <%=thisPage.equals("login")? "active":"" %>">
-					<a class="nav-link" href="${pageContext.request.contextPath }/users/loginform.jsp">Login</a>
-				</li>
-				<li class="nav-item <%=thisPage.equals("cafe")? "active":"" %>">
-					<a class="nav-link" href="${pageContext.request.contextPath }/cafe/list.jsp">Cafe List</a>
-				</li>
-			</ul>	
+			</ul>
+			<%
+				//로그인된 아이디가 있는지 읽어와 본다.
+				String id=(String)session.getAttribute("id");
+			%>
+			<%if(id==null){ %>
+				<a class="btn btn-success btn-sm" 
+				href="${pageContext.request.contextPath }/users/loginform.jsp">로그인</a>
+			<%}else{ %>
+				<span class="navbar-text">
+					<a href="${pageContext.request.contextPath }/users/private/info.jsp"><%=id %></a>
+					<a class="btn btn-warning btn-sm" href="${pageContext.request.contextPath }/users/logout.jsp">로그아웃</a>
+				</span>
+			<%} %>	
 		</div>
 	</div>
 </nav>

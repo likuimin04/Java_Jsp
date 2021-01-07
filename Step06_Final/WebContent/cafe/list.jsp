@@ -24,9 +24,12 @@
 			<li class="breadcrumb-item">
 				<a href="${pageContext.request.contextPath }/">Home</a>
 			</li>
-			<li class="breadcrumb-item active">카페 글 목록</li>
+			<li class="breadcrumb-item">
+				<a href="${pageContext.request.contextPath }/cafe/list.jsp">글목록</a>
+			</li>
+			<li class="breadcrumb-item active">상세보기</li>
 		</ul>
-	</nav>
+	</nav>	
 	<button type="button" class="btn btn-light"><a href="private/insertform.jsp">새글 작성</a></button>
 	<table class="table table-striped">
 		<thead>
