@@ -21,6 +21,51 @@ public class FileDao {
 		}
 		return dao;
 	}
+	//파일 하나의 정보를 리턴하는 메소드
+	public FileDto getData(int num) {
+		//파일정보를 담을 FileDto 지역변수 선언
+		FileDto dto=null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = new DbcpBean().getConn();
+			//select 문 작성
+			String sql = "SELECT writer,title,orgFileName,saveFileName,"
+					+ "fileSize,regdate"
+					+ " FROM board_file"
+					+ " WHERE num=?";
+			pstmt = conn.prepareStatement(sql);
+			// ? 에 바인딩 할게 있으면 여기서 바인딩한다.
+			pstmt.setInt(1, num);
+			//select 문 수행하고 ResultSet 받아오기
+			rs = pstmt.executeQuery();
+			//while문 혹은 if문에서 ResultSet 으로 부터 data 추출
+			if (rs.next()) {
+				dto=new FileDto();
+				dto.setWriter(rs.getString("writer"));
+				dto.setTitle(rs.getString("title"));
+				dto.setOrgFileName(rs.getString("orgFileName"));
+				dto.setSaveFileName(rs.getString("saveFileName"));
+				dto.setFileSize(rs.getLong("fileSize"));
+				dto.setRegdate(rs.getString("regdate"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+			}
+		}
+		return dto;
+	}
+	
 	//업로드된 파일 목록을 리턴하는 메소드
 	public List<FileDto> getList(){
 		List<FileDto> list=new ArrayList<FileDto>();
@@ -102,4 +147,5 @@ public class FileDao {
 		}
 	}
 }
+
 
