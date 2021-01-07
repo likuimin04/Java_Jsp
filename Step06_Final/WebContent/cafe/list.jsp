@@ -13,12 +13,6 @@
 <meta charset="UTF-8">
 <title>/cafe/list.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
-<style>
-	/* 고정된 navbar 밑에 최상단 컨텐츠가 숨겨지지 않도록 */
-	body{
-		padding-top:60px;
-	}
-</style>
 </head>
 <body>
 <jsp:include page="../include/navbar.jsp">
