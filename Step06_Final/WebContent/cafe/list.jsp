@@ -12,12 +12,23 @@
 <head>
 <meta charset="UTF-8">
 <title>/cafe/list.jsp</title>
+<jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body>
+<jsp:include page="../include/navbar.jsp">
+	<jsp:param value="cafe" name="thisPage"/>
+</jsp:include>
 <div class="container">
-	<a href="private/insertform.jsp">새글 작성</a>
-	<h1>카페 글 목록 입니다.</h1>
-	<table>
+	<nav>
+		<ul class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="${pageContext.request.contextPath }/">Home</a>
+			</li>
+			<li class="breadcrumb-item active">카페 글 목록</li>
+		</ul>
+	</nav>
+	<button type="button" class="btn btn-light"><a href="private/insertform.jsp">새글 작성</a></button>
+	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>글번호</th>
