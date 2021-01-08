@@ -42,8 +42,6 @@
 				<td>
 				<%if(tmp.getWriter().equals(id)){ %>
 					<a href="private/delete.jsp?num=<%=tmp.getNum() %>">삭제</a>
-				<%}else{ %>
-				
 				<%} %>
 				</td>
 			</tr>
@@ -51,5 +49,13 @@
 		</tbody>
 	</table>
 </div>
+<script>
+	function deleteConfirm(num){
+		let isDelete=confirm(num+"번 파일을 삭제 하시겠습니까?");
+		if(isDelete){
+			location.href="private/delete.jsp?num="+num;
+		}
+	}
+</script>
 </body>
 </html>
