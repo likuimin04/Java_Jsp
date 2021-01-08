@@ -15,6 +15,7 @@
 		<div class="form-group">
 			<label for="id">아이디</label>
 			<input class="form-control" type="text" name="id" id="id"/>
+			<div class="invalid-feedback">사용할수 없는 아이디 입니다</div>
 		</div>
 		<div class="form-group">
 			<label for="pwd">비밀번호</label>
@@ -58,6 +59,35 @@
 			//유효하지 않다는 클래스 추가 
 			$("#pwd").addClass("is-invalid");
 		}
+	});
+	
+	//아이디 입력란에 입력했을때 실행할 함수 등록 
+	$("#id").on("input", function(){
+		//1. 입력한 아이디를 읽어와서
+		let inputId=$("#id").val();
+		//2. 서버에 ajax 요청으로 보내서 사용 가능 여부를 응답 받아서 반응을 보여준다.
+		//일단 모든 검증 클래스를 제거하고
+		$("#id").removeClass("is-valid is-invalid");
+		$.ajax({
+			url:"checkid.jsp",
+			method:"GET",
+			data:"inputId="+inputId,
+			success:function(responseData){
+				/*
+					checkid.jsp 페이지에서 응답할때 
+					contentType="application/json" 이라고 설정하면
+					함수의 인자로 전달되는 responseData 는 object 이다.
+					{isExist:true} or {isExist:false} 
+					형식의 object 이기 때문에 바로 사용할수 있다. 
+				*/
+				console.log(responseData);
+				if(responseData.isExist){//이미 존재하는 아이디인 경우
+					$("#id").addClass("is-invalid");
+				}else{//존재하지 않는 아이디 즉 사용가능한 아이디인 경우 
+					$("#id").addClass("is-valid");
+				}
+			}
+		});
 	});
 </script>
 </body>
