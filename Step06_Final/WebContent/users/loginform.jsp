@@ -28,7 +28,7 @@
 		</div>
 		<div>
 			<label for="pwd">비밀번호</label>
-			<input type="text" name="pwd" id="pwd"/>
+			<input type="password" name="pwd" id="pwd"/>
 		</div>
 		<button type="submit">로그인</button>
 	</form>
