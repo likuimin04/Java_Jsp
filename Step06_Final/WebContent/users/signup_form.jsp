@@ -15,6 +15,7 @@
 		<div class="form-group">
 			<label for="id">아이디</label>
 			<input class="form-control" type="text" name="id" id="id"/>
+			<small class="form-text text-muted">아이디는 4글자 이상 입력 해야 합니다</small>
 			<div class="invalid-feedback">사용할수 없는 아이디 입니다</div>
 		</div>
 		<div class="form-group">
@@ -34,11 +35,16 @@
 	</form>
 </div>
 <script>
+	//아이디 유효성 여부를 관리할 변수 만들고 초기값 부여하기
+	let isIdValid=false;
+
 	//폼에 submit 이벤트가 일어 났을때 jquery 를 활용해서 폼에 입력한 내용 검증하기
-	
 	// id 가 myForm 인 요소에 submit 이벤트가 일어 났을때 실행할 함수 등록 
 	$("#myForm").on("submit", function(){
-		
+		//만일 아이디를 제대로 입력하지 않았으면 폼 전송을 막는다.
+		if(!isIdValid){
+			return false;
+		}
 	});
 	
 	// id 가 pwd 와  pwd2 인 요소에 input(입력) 이벤트가 일어 났을때 실행할 함수 등록 
@@ -65,9 +71,21 @@
 	$("#id").on("input", function(){
 		//1. 입력한 아이디를 읽어와서
 		let inputId=$("#id").val();
+		
 		//2. 서버에 ajax 요청으로 보내서 사용 가능 여부를 응답 받아서 반응을 보여준다.
 		//일단 모든 검증 클래스를 제거하고
 		$("#id").removeClass("is-valid is-invalid");
+		
+		//입력한 문자열의 길이를 얻어낸다
+		let length=inputId.length;
+		//만일 문자열의 길이가 4보다 작으면 
+		if(length<4){
+			//아이디가 유효하지 않다고 표시하고 
+			$("#id").addClass("is-invalid");
+			isIdValid=false;
+			//함수를 여기서 종료 한다
+			return;
+		}
 		$.ajax({
 			url:"checkid.jsp",
 			method:"GET",
@@ -83,8 +101,11 @@
 				console.log(responseData);
 				if(responseData.isExist){//이미 존재하는 아이디인 경우
 					$("#id").addClass("is-invalid");
+					isIdValid=false;
 				}else{//존재하지 않는 아이디 즉 사용가능한 아이디인 경우 
 					$("#id").addClass("is-valid");
+					//아이디가 유효 하다고 표시한다. 
+					isIdValid=true;
 				}
 			}
 		});
