@@ -1,3 +1,5 @@
+<%@page import="test.users.dto.UsersDto"%>
+<%@page import="test.users.dao.UsersDao"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="java.io.File"%>
@@ -23,18 +25,22 @@
 	String orgFileName=mr.getOriginalFileName("image");
 	//upload  폴더에 실제 저장된 파일명
 	String saveFileName=mr.getFilesystemName("image");
+	
+	//로그인된 아이디
+	String id=(String)session.getAttribute("id");
+	//저장된 파일명을 이용해서 프로필 이미지 경로를 구성한다. 
+	String profile="/upload/"+saveFileName;
+	//UsersDto 객체에 담아서
+	UsersDto dto=new UsersDto();
+	dto.setId(id);
+	dto.setProfile(profile);
+	//DB 에 반영하기
+	UsersDao.getInstance().updateProfile(dto);
+	//개인정보 수정 페이지로 리다일렉트 
+	String cPath=request.getContextPath();
+	response.sendRedirect(cPath+"/users/private/updateform.jsp");
 %>    
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>/users/private/profile_upload.jsp</title>
-</head>
-<body>
-	<p>업로드된 파일의 이름 : <strong><%=orgFileName %></strong></p>
-	<img src="${pageContext.request.contextPath }/upload/<%=saveFileName %>" />
-</body>
-</html>
+
 
 
 
