@@ -29,6 +29,11 @@
 		<button type="submit">수정확인</button>
 		<button type="reset">취소</button>
 	</form>
+	<h2>프로필 이미지 업로드 테스트</h2>
+	<form action="profile_upload.jsp" method="post" enctype="multipart/form-data">
+		<input type="file" name="image" accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
+		<button type="submit">업로드</button>
+	</form>
 </div>
 </body>
 </html>
