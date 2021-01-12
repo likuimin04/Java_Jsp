@@ -21,6 +21,68 @@ public class FileDao {
 		}
 		return dao;
 	}
+	//제목 파일명 검색인 경우의 row 갯수
+	public int getCountTF(FileDto dto) {
+		//글의 갯수를 담을 지역변수 
+		int count=0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = new DbcpBean().getConn();
+			//select 문 작성
+			String sql = "SELECT NVL(MAX(ROWNUM), 0) AS num "
+					+ " FROM board_file"
+					+ " WHERE title LIKE '%'||?||'%'"
+					+ " OR orgFileName LIKE '%'||?||'%'";
+			pstmt = conn.prepareStatement(sql);
+			// ? 에 바인딩 할게 있으면 여기서 바인딩한다.
+			/*
+			 *  [ title 검색 키워드가 "kim" 이라고 가정하면 ]
+			 *  
+			 *  값 바인딩 전
+			 *  1. title LIKE '%' || ? || '%'
+			 *  
+			 *  값 바인딩 후
+			 *  2. title LIKE '%' || 'kim' || '%'
+			 *  
+			 *  연결연산 후 아래와 같은 SELECT 문이 구성된다. 
+			 *  3. title LIKE '%kim%'
+			 *  
+			 *  따라사 제목에 kim 이라는 문자열이 포함된 row  가  SELECT 된다.
+			 */ 
+			pstmt.setString(1, dto.getTitle());
+			pstmt.setString(2, dto.getOrgFileName());
+			//select 문 수행하고 ResultSet 받아오기
+			rs = pstmt.executeQuery();
+			//while문 혹은 if문에서 ResultSet 으로 부터 data 추출
+			if (rs.next()) {
+				count=rs.getInt("num");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+			}
+		}
+		return count;
+	}
+	//제목 검색인 경우의 row 갯수 
+	public int getCountT(FileDto dto) {
+		return 0;
+	}
+	//작성자 검색인 경우의 row 갯수
+	public int getCountW(FileDto dto) {
+		return 0;
+	}
+	
 	//전체 글의 갯수를 리턴하는 메소드
 	public int getCount() {
 		//글의 갯수를 담을 지역변수 
