@@ -38,7 +38,8 @@
 	<jsp:param value="gallery" name="thisPage"/>
 </jsp:include>
 <div class="container">
-	<a href="private/upload_form.jsp">사진 업로드 하러 가기</a>
+	<a href="private/upload_form.jsp">사진 업로드 하러 가기</a><br/>
+	<a href="private/ajax_form.jsp">사진 업로드 하러 가기2</a>
 	<h1>겔러리 목록 입니다.</h1>
 	<div class="row">
 		<%for(GalleryDto tmp:list){ %>
