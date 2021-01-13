@@ -42,9 +42,15 @@
 	<h1>겔러리 목록 입니다.</h1>
 	<div class="row">
 		<%for(GalleryDto tmp:list){ %>
-		<div class="col-6 col-md-3">
+		<!-- 
+			[ 칼럼의 폭을 반응형으로 ]
+			device 폭 768px 미만에서  칼럼의 폭 => 6/12 (50%)
+			device 폭 768px ~ 992px 에서  칼럼의 폭 => 4/12 (33.333%)
+			device 폭 992  이상에서  칼럼의 폭 => 3/12 (25%)
+		 -->
+		<div class="col-6 col-md-4 col-lg-3">
 			<a href="detail.jsp?num=<%=tmp.getNum() %>">
-				<div class="card">
+				<div class="card mb-3">
 					<div class="img-wrapper">
 						<img class="card-img-top" src="${pageContext.request.contextPath }<%=tmp.getImagePath() %>" />
 					</div>
