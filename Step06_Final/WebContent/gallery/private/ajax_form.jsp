@@ -25,7 +25,7 @@
 	</form>
 	<button id="submitBtn">등록</button>
 	<div class="img-wrapper">
-	
+		<img />
 	</div>
 </div>
 <script src="${pageContext.request.contextPath }/js/jquery-3.5.1.js"></script>
@@ -34,7 +34,12 @@
 <script>
 	//form 플러그인을 이용해서 form 이 ajax 전송(페이지 전환없이) 되도록 한다.
 	$("#ajaxForm").ajaxForm(function(data){
+		// data 는 {imagePath:"업로드된 이미지경로"} 형태의 object 이다.
 		console.log(data);
+		//로딩할 이미지의 경로 구성
+		let src="${pageContext.request.contextPath}"+data.imagePath;
+		// img 요소의 src 속성으로 지정을 해서 이미지를 표시한다.
+		$(".img-wrapper img").attr("src", src);
 	});
 </script>
 </body>
