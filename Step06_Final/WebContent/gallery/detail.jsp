@@ -24,6 +24,12 @@
 			<p><small><%=dto.getRegdate() %></small></p>
 		</div>
 	</div>
+	<%if(dto.getPrevNum() != 0){ %>
+		<a href="detail.jsp?num=<%=dto.getPrevNum()%>">이전</a>
+	<%} %>
+	<%if(dto.getNextNum() != 0){ %>
+		<a href="detail.jsp?num=<%=dto.getNextNum()%>">다음</a>
+	<%} %>
 </div>
 </body>
 </html>
