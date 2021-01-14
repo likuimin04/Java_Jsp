@@ -153,6 +153,9 @@
 	// card 이미지의 부모 요소를 선택해서 imgLiquid  동작(jquery plugin 동작) 하기 
 	$(".img-wrapper").imgLiquid();
 	
+	//페이지가 처음 로딩될때 1 page 를 보여주기 때문에 초기값을 1 로 지정한다.
+	let currentPage=1; //화면상에 로딩된 최신 페이지번호를 저장할 변수 
+	
 	//웹브라우저의 창을 스크롤 할때 마다 호출되는 함수 등록
 	$(window).on("scroll", function(){
 		console.log("scorll!");
@@ -164,13 +167,19 @@
 		let isBottom = scrollTop+windowHeight + 10 >= documentHeight;
 		if(isBottom){
 			console.log("오매~ 바닥이네?");
+			//만일 현재 마지막 페이지라면
+			if(currentPage == <%=totalPageCount %>){
+				return; //함수를 여기서 끝낸다. 
+			}
 			//로딩바를 띄우고
 			$(".back-drop").show();
+			//요청할 페이지 번호를 1 증가 시킨다
+			currentPage++;
 			//추가로 받아올 페이지를 서버에 ajax 요청을 하고
 			$.ajax({
 				url:"ajax_page.jsp",
 				method:"GET",
-				data:"pageNum=2",
+				data:"pageNum="+currentPage, // {pageNum:currentPage} 도 가능
 				success:function(data){
 					console.log(data);
 					//응답된 문자열은 html 형식이다 
