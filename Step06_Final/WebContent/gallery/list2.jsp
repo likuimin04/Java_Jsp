@@ -121,7 +121,7 @@
 	<a href="private/upload_form.jsp">사진 업로드 하러 가기</a><br/>
 	<a href="private/ajax_form.jsp">사진 업로드 하러 가기2</a>
 	<h1>겔러리 목록 입니다.</h1>
-	<div class="row">
+	<div class="row" id="galleryList">
 		<%for(GalleryDto tmp:list){ %>
 		<!-- 
 			[ 칼럼의 폭을 반응형으로 ]
@@ -167,10 +167,19 @@
 			//로딩바를 띄우고
 			$(".back-drop").show();
 			//추가로 받아올 페이지를 서버에 ajax 요청을 하고
-			
-			//응답이 오면 응답된 컨텐츠를 body 에 추가하고 
-			
-			//로딩바를 숨긴다. 
+			$.ajax({
+				url:"ajax_page.jsp",
+				method:"GET",
+				data:"pageNum=2",
+				success:function(data){
+					console.log(data);
+					//응답된 문자열은 html 형식이다 
+					//해당 문자열을 #galleryList div 에 html 로 해석하라고 추가한다.
+					$("#galleryList").append(data);
+					//로딩바를 숨긴다
+					$(".back-drop").hide();
+				}
+			});
 		}
 	});
 </script>
