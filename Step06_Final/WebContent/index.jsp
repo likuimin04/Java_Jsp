@@ -29,6 +29,7 @@
 		<li><a href="file/list.jsp">자료실 목록 보기</a></li>
 		<li><a href="gallery/list.jsp">겔러리 목록 보기</a></li>
 		<li><a href="file/list2">자료실 목록보기(MVC 페턴)</a></li>
+		<li><a href="test/error_test.jsp">500 오류나는 페이지</a></li>
 	</ul>
 </div>
 </body>
