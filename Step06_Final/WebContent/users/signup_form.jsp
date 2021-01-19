@@ -75,6 +75,22 @@
 		}
 	});
 	
+	//이메일을 입력했을때 실행할 함수 등록
+	$("#email").on("input", function(){
+		let inputEmail=$("#email").val();
+		//일단 모든 검증 클래스를 제거하고
+		$("#email").removeClass("is-valid is-invalid");
+		//만일 이메일이 정규표현식에 매칭되지 않는다면
+		if(!reg_email.test(inputEmail)){
+			isEmailValid=false;
+			$("#email").addClass("is-invalid");
+		}else{
+			isEmailValid=true;
+			$("#email").addClass("is-valid");
+		}
+	});
+	
+	
 	// id 가 pwd 와  pwd2 인 요소에 input(입력) 이벤트가 일어 났을때 실행할 함수 등록 
 	$("#pwd, #pwd2").on("input", function(){
 		// input 이벤트가 언제 일어나는지 확인 요망!
@@ -87,8 +103,8 @@
 		//일단 모든 검증 클래스를 제거하고
 		$("#pwd").removeClass("is-valid is-invalid");
 		
-		//만일 비밀번호를 4 글자 이상 입력하지 않았다면 
-		if(pwd.length<4){
+		//비밀번호가 정규표현식에 매칭되지 않으면 
+		if(!reg_pwd.test(pwd)){
 			//비밀번호가 유효하지 않는다고 표시하고 
 			$("#pwd").addClass("is-invalid");
 			isPwdValid=false;
@@ -117,10 +133,8 @@
 		//일단 모든 검증 클래스를 제거하고
 		$("#id").removeClass("is-valid is-invalid");
 		
-		//입력한 문자열의 길이를 얻어낸다
-		let length=inputId.length;
-		//만일 문자열의 길이가 4보다 작으면 
-		if(length<4){
+		//입력한 문자열이 정규표현식과 매칭되는지 테스트
+		if(!reg_id.test(inputId)){//만일 매칭되지 않으면
 			//아이디가 유효하지 않다고 표시하고 
 			$("#id").addClass("is-invalid");
 			isIdValid=false;
